@@ -1,0 +1,1037 @@
+/* =====================================================
+   TECHBLU PRACTICE COMPILER
+   FULL DESKTOP SPLIT-SCREEN LAYOUT
+===================================================== */
+
+.practice-workspace {
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 99999;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #0b1220;
+  color: #f8fafc;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.practice-topbar {
+  height: 64px;
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 18px;
+
+  background: #111b2e;
+
+  border-bottom: 1px solid #263449;
+
+  flex-shrink: 0;
+
+  position: relative;
+  z-index: 20;
+}
+
+.practice-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #f8fafc;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+}
+
+.practice-brand svg {
+  color: #22c55e;
+}
+
+.practice-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.practice-icon-btn,
+.practice-reset-btn,
+.practice-submit-btn,
+.practice-close-btn {
+  border: 0;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  height: 38px;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.practice-icon-btn {
+  width: 38px;
+
+  color: #cbd5e1;
+  background: transparent;
+}
+
+.practice-icon-btn:hover {
+  background: #1e293b;
+  color: white;
+}
+
+.practice-reset-btn {
+  padding: 0 13px;
+
+  color: #dbe4ef;
+  background: #1e293b;
+}
+
+.practice-reset-btn:hover {
+  background: #29374b;
+}
+
+.practice-submit-btn {
+  padding: 0 17px;
+
+  color: white;
+  background: #10b981;
+}
+
+.practice-submit-btn:hover {
+  background: #059669;
+}
+
+.practice-submit-btn:disabled,
+.practice-reset-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.practice-close-btn {
+  width: 38px;
+
+  color: #cbd5e1;
+  background: transparent;
+}
+
+.practice-close-btn:hover {
+  background: #7f1d1d;
+  color: white;
+}
+
+/* =====================================================
+   MAIN SPLIT
+===================================================== */
+
+.practice-main {
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+
+  width: 100%;
+  height: calc(100vh - 64px);
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   LEFT PROBLEM PANEL
+===================================================== */
+
+.practice-problem-panel {
+  width: 40%;
+  min-width: 380px;
+  max-width: 680px;
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #132235;
+
+  border-right: 1px solid #2a394d;
+
+  min-height: 0;
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   TABS
+===================================================== */
+
+.practice-tabs {
+  height: 54px;
+  min-height: 54px;
+
+  display: flex;
+  align-items: stretch;
+
+  background: #111b2e;
+
+  border-bottom: 1px solid #263449;
+
+  flex-shrink: 0;
+}
+
+.practice-tab {
+  position: relative;
+
+  padding: 0 20px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #94a3b8;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.practice-tab:hover {
+  color: #e2e8f0;
+}
+
+.practice-tab.active {
+  color: white;
+}
+
+.practice-tab.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 2px;
+
+  background: #22c55e;
+}
+
+/* =====================================================
+   LEFT SCROLL AREA
+===================================================== */
+
+.practice-problem-scroll {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 24px 25px 50px;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #475569
+    #132235;
+}
+
+.practice-problem-scroll::-webkit-scrollbar {
+  width: 9px;
+}
+
+.practice-problem-scroll::-webkit-scrollbar-track {
+  background: #132235;
+}
+
+.practice-problem-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+
+  border-radius: 10px;
+}
+
+.practice-problem-scroll::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* =====================================================
+   PROBLEM HEADER
+===================================================== */
+
+.practice-problem-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 14px;
+}
+
+.difficulty-badge,
+.solved-badge {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 5px 10px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.difficulty-easy {
+  color: #86efac;
+  background: #064e3b;
+}
+
+.difficulty-medium {
+  color: #fde68a;
+  background: #713f12;
+}
+
+.difficulty-hard {
+  color: #fca5a5;
+  background: #7f1d1d;
+}
+
+.solved-badge {
+  color: #86efac;
+  background: #064e3b;
+}
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.practice-title {
+  margin: 0 0 27px;
+
+  color: #f8fafc;
+
+  font-size: 32px;
+
+  line-height: 1.2;
+
+  font-weight: 700;
+
+  letter-spacing: -0.02em;
+}
+
+/* =====================================================
+   PROBLEM SECTIONS
+===================================================== */
+
+.problem-section {
+  margin-bottom: 25px;
+}
+
+.problem-section h3,
+.problem-important strong {
+  margin: 0 0 10px;
+
+  color: #f8fafc;
+
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+.problem-section p {
+  margin: 0;
+
+  color: #cbd5e1;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+}
+
+/* =====================================================
+   INPUT / OUTPUT BOXES
+===================================================== */
+
+.test-input-box,
+.expected-output-box {
+  margin: 12px 0 0;
+
+  padding: 15px 16px;
+
+  overflow-x: auto;
+
+  border-radius: 7px;
+
+  background: #08111f;
+
+  border: 1px solid #263449;
+
+  color: #dbeafe;
+
+  font-family:
+    "JetBrains Mono",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+
+  line-height: 1.65;
+
+  white-space: pre-wrap;
+}
+
+.expected-output-box {
+  color: #86efac;
+}
+
+/* =====================================================
+   IMPORTANT
+===================================================== */
+
+.problem-important {
+  margin: 25px 0;
+
+  padding: 15px;
+
+  border-left: 3px solid #f59e0b;
+
+  background: rgba(245, 158, 11, 0.06);
+
+  border-radius: 4px;
+}
+
+.problem-important p {
+  margin: 8px 0 0;
+
+  color: #cbd5e1;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+/* =====================================================
+   DROPDOWNS
+===================================================== */
+
+.dropdown-section {
+  margin-top: 12px;
+}
+
+.dropdown-btn {
+  width: 100%;
+
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 13px;
+
+  border: 1px solid #2a394d;
+
+  border-radius: 6px;
+
+  background: #17263a;
+
+  color: #e2e8f0;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dropdown-btn:hover {
+  background: #1e3048;
+}
+
+.dropdown-btn span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-content {
+  margin-top: 6px;
+
+  padding: 14px;
+
+  border-radius: 6px;
+
+  background: #0d1726;
+
+  border: 1px solid #263449;
+
+  color: #cbd5e1;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+}
+
+.solution-content pre,
+.solution-code {
+  margin: 0;
+
+  overflow-x: auto;
+
+  color: #c4b5fd;
+
+  font-family:
+    "JetBrains Mono",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+
+  line-height: 1.65;
+
+  white-space: pre-wrap;
+}
+
+.problem-bottom-space {
+  height: 80px;
+}
+
+/* =====================================================
+   TAB PAGES
+===================================================== */
+
+.tab-page h2 {
+  margin: 0 0 20px;
+
+  font-size: 24px;
+}
+
+.tab-page p {
+  color: #94a3b8;
+
+  line-height: 1.7;
+}
+
+.solution-code {
+  padding: 16px;
+
+  background: #08111f;
+
+  border: 1px solid #263449;
+
+  border-radius: 7px;
+}
+
+.submission-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 15px;
+
+  border-radius: 7px;
+
+  background: rgba(16, 185, 129, 0.08);
+
+  border: 1px solid #065f46;
+
+  color: #86efac;
+}
+
+.submission-success p {
+  margin: 5px 0 0;
+}
+
+/* =====================================================
+   RIGHT EDITOR
+===================================================== */
+
+.practice-editor-panel {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #070f1c;
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   EDITOR HEADER
+===================================================== */
+
+.editor-header {
+  height: 52px;
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 16px;
+
+  background: #111b2e;
+
+  border-bottom: 1px solid #263449;
+
+  flex-shrink: 0;
+}
+
+.editor-file {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #e2e8f0;
+
+  font-family:
+    "JetBrains Mono",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+}
+
+.python-file-icon {
+  font-size: 17px;
+}
+
+.editor-label {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+/* =====================================================
+   MONACO CONTAINER
+===================================================== */
+
+.monaco-container {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+/*
+   IMPORTANT:
+   Monaco must have a real height.
+   automaticLayout then follows this container.
+*/
+
+.monaco-container > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* =====================================================
+   TEST CASE PANEL
+===================================================== */
+
+.practice-test-panel {
+  flex-shrink: 0;
+
+  background: #101323;
+
+  border-top: 1px solid #263449;
+
+  color: #e2e8f0;
+}
+
+.test-panel-open {
+  min-height: 190px;
+  max-height: 300px;
+}
+
+.test-panel-closed {
+  height: 42px;
+}
+
+/* =====================================================
+   TEST HEADER
+===================================================== */
+
+.test-panel-header {
+  width: 100%;
+
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 16px;
+
+  border: 0;
+
+  background: #151a2c;
+
+  color: #cbd5e1;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.test-panel-header:hover {
+  background: #1b2237;
+}
+
+.test-panel-header > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =====================================================
+   TEST BODY
+===================================================== */
+
+.test-panel-body {
+  height: calc(100% - 42px);
+
+  min-height: 0;
+
+  overflow-y: auto;
+
+  padding: 15px 17px;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #475569
+    #101323;
+}
+
+.test-empty {
+  min-height: 110px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #64748b;
+
+  font-family:
+    "JetBrains Mono",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+}
+
+/* =====================================================
+   RESULT COMMON
+===================================================== */
+
+.result-heading {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 11px;
+}
+
+.result-heading strong {
+  display: block;
+
+  font-size: 16px;
+}
+
+.result-heading p {
+  margin: 4px 0 0;
+
+  color: #94a3b8;
+
+  font-size: 13px;
+}
+
+.result-correct {
+  color: #86efac;
+}
+
+.result-correct .result-heading svg {
+  color: #22c55e;
+}
+
+.result-wrong {
+  color: #fca5a5;
+}
+
+.result-wrong .result-heading svg,
+.result-error .result-heading svg {
+  color: #ef4444;
+}
+
+.result-error {
+  color: #fca5a5;
+}
+
+/* =====================================================
+   OUTPUT
+===================================================== */
+
+.result-output,
+.result-comparison > div {
+  margin-top: 15px;
+}
+
+.result-output > span,
+.result-comparison span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+.result-output pre,
+.result-comparison pre {
+  margin: 0;
+
+  padding: 12px;
+
+  overflow-x: auto;
+
+  background: #080e18;
+
+  border: 1px solid #263449;
+
+  border-radius: 6px;
+
+  color: #e2e8f0;
+
+  font-family:
+    "JetBrains Mono",
+    Consolas,
+    monospace;
+
+  font-size: 13px;
+
+  white-space: pre-wrap;
+}
+
+.result-comparison {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 14px;
+}
+
+/* =====================================================
+   NEXT QUESTION
+===================================================== */
+
+.next-question-btn {
+  margin-top: 15px;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  height: 38px;
+
+  padding: 0 15px;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  background: #10b981;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.next-question-btn:hover {
+  background: #059669;
+}
+
+/* =====================================================
+   MOBILE / SMALL DESKTOP
+===================================================== */
+
+@media (max-width: 900px) {
+  .practice-main {
+    flex-direction: column;
+
+    overflow-y: auto;
+  }
+
+  .practice-problem-panel {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+
+    height: 50vh;
+
+    flex-shrink: 0;
+
+    border-right: 0;
+    border-bottom: 1px solid #2a394d;
+  }
+
+  .practice-editor-panel {
+    width: 100%;
+
+    height: 50vh;
+
+    min-height: 500px;
+
+    flex-shrink: 0;
+  }
+
+  .practice-topbar {
+    padding: 0 10px;
+  }
+
+  .practice-brand span {
+    display: none;
+  }
+
+  .practice-reset-btn {
+    padding: 0 10px;
+  }
+
+  .practice-submit-btn {
+    padding: 0 11px;
+  }
+
+  .practice-submit-btn svg,
+  .practice-reset-btn svg {
+    display: none;
+  }
+
+  .practice-title {
+    font-size: 26px;
+  }
+
+  .result-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+  .practice-topbar {
+    height: 58px;
+    min-height: 58px;
+  }
+
+  .practice-main {
+    height: calc(100vh - 58px);
+  }
+
+  .practice-problem-panel {
+    height: 55vh;
+  }
+
+  .practice-editor-panel {
+    height: 55vh;
+  }
+
+  .practice-problem-scroll {
+    padding: 18px 15px 35px;
+  }
+
+  .practice-tabs {
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .practice-tab {
+    padding: 0 13px;
+
+    font-size: 12px;
+  }
+
+  .practice-title {
+    font-size: 23px;
+  }
+
+  .editor-header {
+    height: 45px;
+    min-height: 45px;
+  }
+
+  .editor-label {
+    display: none;
+  }
+
+  .test-panel-open {
+    min-height: 180px;
+  }
+}
+
+/* =====================================================
+   BODY LOCK WHEN PRACTICE COMPILER IS OPEN
+===================================================== */
+
+body.practice-compiler-open {
+  overflow: hidden !important;
+}
