@@ -1,0 +1,320 @@
+---
+title: "STRING AND FILES "
+language: "python"
+description: "Learn Python string methods, f-strings, regex, and file operations. Complete guide to reading, writing, and handling CSV, JSON, and directories in Python."
+---
+## 1. String Formatting
+
+**String Formatting** refers to techniques used to construct dynamic strings by inserting variables or values into specific locations within a text template. Before f-strings, Python primarily used the `%` operator (positional/type-based formatting) and the `.format()` method.
+
+**Example**
+
+```python
+name = "Alice"
+age = 22
+
+# Using % operator
+old_style = "Student: %s | Age: %d" % (name, age)
+
+# Using .format() method
+format_style = "Student: {} | Age: {}".format(name, age)
+
+print(old_style)
+print(format_style)
+```
+
+**Output**
+
+```text
+Student: Alice | Age: 22
+Student: Alice | Age: 22
+```
+
+---
+
+## 2. f-Strings (Formatted String Literals)
+
+Introduced in Python 3.6, **f-strings** provide a clean, concise, and readable way to embed Python expressions directly inside string literals by prefixing the string with `f` or `F` and placing variables or expressions inside curly braces `{}`.
+
+**Example**
+
+```python
+item = "Laptop"
+price = 899.9876
+quantity = 3
+
+# Embedding expressions and formatting numbers to 2 decimal places
+summary = f"Item: {item} | Total: ${price * quantity:.2f}"
+
+print(summary)
+```
+
+**Output**
+
+```text
+Item: Laptop | Total: $2699.96
+```
+
+---
+
+## 3. String Methods
+
+Python provides built-in **String Methods** to manipulate and inspect text objects easily. Strings in Python are immutable, meaning these methods return a new modified string rather than altering the original.
+
+Commonly used methods include:
+* `.upper()` / `.lower()`: Converts string case.
+* `.strip()`: Removes leading and trailing whitespace.
+* `.replace(old, new)`: Replaces substrings.
+* `.split(delimiter)`: Divides a string into a list.
+* `delimiter.join(iterable)`: Combines list elements into a single string.
+
+**Example**
+
+```python
+text = "  python programming is fun!  "
+
+# Cleaning whitespace
+clean_text = text.strip()
+
+# Uppercase transformation
+upper_text = clean_text.upper()
+
+# Replacing words
+new_text = clean_text.replace("fun", "awesome")
+
+# Splitting into a list
+words = clean_text.split()
+
+# Joining list elements with a hyphen
+joined_text = "-".join(words)
+
+print(f"Cleaned: '{clean_text}'")
+print(f"Upper: '{upper_text}'")
+print(f"Replaced: '{new_text}'")
+print(f"Words List: {words}")
+print(f"Joined: '{joined_text}'")
+```
+
+**Output**
+
+```text
+Cleaned: 'python programming is fun!'
+Upper: 'PYTHON PROGRAMMING IS FUN!'
+Replaced: 'python programming is awesome!'
+Words List: ['python', 'programming', 'is', 'fun!']
+Joined: 'python-programming-is-fun!'
+```
+
+---
+
+## 4. Regular Expressions (regex)
+
+**Regular Expressions** (via the `re` module) are powerful tools used for matching, searching, and extracting complex text patterns (such as email addresses, phone numbers, or dates) from strings.
+
+**Example**
+
+```python
+import re
+
+text = "Contact us at support@example.com or sales@company.org for assistance."
+
+# Pattern to find email addresses
+email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+
+# Find all matching patterns
+emails = re.findall(email_pattern, text)
+
+print(f"Found Emails: {emails}")
+```
+
+**Output**
+
+```text
+Found Emails: ['support@example.com', 'sales@company.org']
+```
+
+---
+
+## 5. Reading Files
+
+Reading files allows Python programs to access data stored permanently on disk. Using the `with open(...)` context manager ensures that files are automatically closed after processing, preventing resource leaks.
+
+**Example**
+
+```python
+# Assuming 'notes.txt' exists with sample content
+sample_content = "Line 1: Welcome to Python Files.\nLine 2: File handling is easy."
+
+# Creating the sample file for demonstration
+with open("notes.txt", "w") as file:
+    file.write(sample_content)
+
+# Reading the contents of the file
+with open("notes.txt", "r") as file:
+    content = file.read()
+
+print("File Contents:")
+print(content)
+```
+
+**Output**
+
+```text
+File Contents:
+Line 1: Welcome to Python Files.
+Line 2: File handling is easy.
+```
+
+---
+
+## 6. Writing Files
+
+To save data to a file, open it in **write mode (`'w'`)** to overwrite existing contents or **append mode (`'a'`)** to add new content to the end without deleting existing data.
+
+**Example**
+
+```python
+# Writing (overwriting) to a file
+with open("log.txt", "w") as file:
+    file.write("System Log Initiated.\n")
+
+# Appending new lines to the file
+with open("log.txt", "a") as file:
+    file.write("User 'Alex' logged in.\n")
+    file.write("Task completed successfully.\n")
+
+# Verification by reading
+with open("log.txt", "r") as file:
+    print(file.read())
+```
+
+**Output**
+
+```text
+System Log Initiated.
+User 'Alex' logged in.
+Task completed successfully.
+```
+
+---
+
+## 7. Working with CSV Files
+
+**Comma-Separated Values (CSV)** files are lightweight tabular data files. Python's built-in `csv` module provides standard functions (`csv.writer` and `csv.reader`) to structure and retrieve rows easily.
+
+**Example**
+
+```python
+import csv
+
+# Writing to a CSV file
+data = [
+    ["Name", "Department", "Salary"],
+    ["John", "Engineering", 75000],
+    ["Sarah", "Marketing", 68000]
+]
+
+with open("employees.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+# Reading from a CSV file
+print("Reading CSV contents:")
+with open("employees.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+```
+
+**Output**
+
+```text
+Reading CSV contents:
+['Name', 'Department', 'Salary']
+['John', 'Engineering', '75000']
+['Sarah', 'Marketing', '68000']
+```
+
+---
+
+## 8. Working with JSON
+
+**JSON (JavaScript Object Notation)** is a lightweight data-interchange format. Python’s `json` module translates JSON to Python data structures (`dict`, `list`) and vice versa:
+* `json.dumps()`: Converts a Python object into a JSON string.
+* `json.loads()`: Converts a JSON string into a Python object.
+
+**Example**
+
+```python
+import json
+
+# Python dictionary
+student = {
+    "name": "Jordan",
+    "skills": ["Python", "SQL", "Git"],
+    "is_active": True
+}
+
+# Convert Python dictionary to JSON String
+json_string = json.dumps(student, indent=4)
+print("JSON String Output:")
+print(json_string)
+
+# Parse JSON String back to Python Dictionary
+parsed_dict = json.loads(json_string)
+print("\nParsed Student Name:", parsed_dict["name"])
+```
+
+**Output**
+
+```text
+JSON String Output:
+{
+    "name": "Jordan",
+    "skills": [
+        "Python",
+        "SQL",
+        "Git"
+    ],
+    "is_active": true
+}
+
+Parsed Student Name: Jordan
+```
+
+---
+
+## 9. File and Folder Handling
+
+File and folder handling uses modules like `os` and `pathlib` to interact with the host operating system—performing administrative tasks like creating directories, verifying file existence, and listing folder contents.
+
+**Example**
+
+```python
+import os
+
+folder_name = "course_materials"
+
+# Check if folder exists; if not, create it
+if not os.path.exists(folder_name):
+    os.mkdir(folder_name)
+    print(f"Folder '{folder_name}' created.")
+else:
+    print(f"Folder '{folder_name}' already exists.")
+
+# Check file/directory existence
+is_dir = os.path.isdir(folder_name)
+print(f"Is '{folder_name}' a directory? {is_dir}")
+
+# List contents of current directory
+current_files = os.listdir(".")
+print("Directory items count:", len(current_files))
+```
+
+**Output**
+
+```text
+Folder 'course_materials' created.
+Is 'course_materials' a directory? True
+Directory items count: 5
+```

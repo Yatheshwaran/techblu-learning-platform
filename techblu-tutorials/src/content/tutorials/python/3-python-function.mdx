@@ -1,0 +1,345 @@
+---
+title: "PYTHON FUCTION"
+language: "python"
+description: "Master Python functions with easy-to-understand explanations and code examples. Learn *args, **kwargs, lambda, scope, recursion, map, filter, and reduce."
+---
+
+## 1. Python Functions
+
+A **Python function** is a reusable block of code designed to perform a specific task. Functions execute only when called, preventing code repetition and making programs modular.
+
+ **Example**
+
+```python
+
+# Defining a simple function
+def greet_student():
+    print("Move to next level")
+
+# Calling the function
+greet_student()
+
+```
+
+**Output**
+
+```
+Move to next level
+
+```
+
+## 2. Function Arguments
+
+**Function arguments** are variables or values passed into a function inside the parentheses. They allow functions to dynamically process different data inputs.
+
+**Example**
+
+```python
+# Function with an argument
+def welcome_user(student_name):
+    print(f"Hello, {student_name}! Ready to code?")
+
+welcome_user("Alex")
+welcome_user("Jordan")
+
+```
+
+**Output**
+
+```
+Hello, Alex! Ready to code?
+Hello, Jordan! Ready to code?
+
+```
+
+## 3. Default Arguments
+
+A **default argument** provides a fallback value if no argument is passed for a parameter during the function call.
+
+**Example** 
+
+```python
+# Function with a default argument
+def set_course(course_name="Python Fundamentals"):
+    print(f"Enrolled course: {course_name}")
+
+set_course()  # Uses default value
+set_course("Data Science Essentials")  # Overrides default value
+
+```
+
+**Output**
+
+```
+Enrolled course: Python Fundamentals
+Enrolled course: Data Science Essentials
+
+```
+
+## 4. Keyword Arguments
+
+**Keyword arguments** allow you to pass values using parameter names (`key = value`). This allows arguments to be passed in any order, ignoring positional placement.
+
+**Example** 
+
+```python 
+def student_profile(name, age, grade):
+    print(f"Name: {name} | Age: {age} | Grade: {grade}")
+
+# Arguments passed out of order using keywords
+student_profile(grade="A+", name="Taylor", age=18)
+
+```
+
+**Output**
+
+```
+Name: Taylor | Age: 18 | Grade: A+
+
+```
+
+## 5. `*args` (Arbitrary Positional Arguments)
+
+The **`*args`** syntax allows a function to accept any number of non-keyword (positional) arguments. Inside the function, the arguments are gathered into a **tuple**.
+
+**Example Code**
+
+```python
+def calculate_total_marks(*marks):
+    total = sum(marks)
+    print(f"Total Marks: {total}")
+
+calculate_total_marks(85, 90, 78)
+calculate_total_marks(92, 88)
+
+```
+
+**Output**
+
+```
+Total Marks: 253
+Total Marks: 180
+
+```
+
+## 6. `**kwargs` (Arbitrary Keyword Arguments)
+
+The **`**kwargs`** syntax allows a function to accept any number of named (keyword) arguments. Inside the function, the arguments are gathered into a **dictionary**.
+
+**Example Code**
+
+```python
+def print_student_details(**details):
+    for key, value in details.items():
+        print(f"{key.capitalize()}: {value}")
+
+print_student_details(name="Sophia", track="Backend", GPA=3.9)
+
+```
+
+**Output**
+
+```
+Name: Sophia
+Track: Backend
+Gpa: 3.9
+
+```
+
+## 7. Return Values
+
+The **`return`** statement exits a function and sends data back to the caller. If no return statement is specified, the function returns `None` by default.
+
+**Example**
+
+```python
+def multiply_numbers(a, b):
+    return a * b
+
+result = multiply_numbers(6, 7)
+print(f"Result of multiplication: {result}")
+
+```
+
+**Output**
+
+```
+Result of multiplication: 42
+
+```
+
+## 8. Scope and Global Variables
+
+**Variable Scope** determines where a variable can be accessed.
+
+* **Local Variables:** Declared inside a function; accessible only within that function.
+
+* **Global Variables:** Declared outside functions; accessible throughout the entire script.
+
+* **`global` Keyword:** Used to modify a global variable from inside a function.
+
+**Example** 
+
+```python
+score = 100  # Global variable
+
+def update_score():
+    global score
+    bonus = 15  # Local variable
+    score += bonus
+    print(f"Updated inside function: {score}")
+
+update_score()
+print(f"Global variable value: {score}")
+
+```
+
+**Output**
+
+```
+Updated inside function: 115
+Global variable value: 115
+
+```
+
+## 9. Lambda Functions
+
+A **lambda function** is a small, anonymous function written on a single line. It can take any number of arguments but can only evaluate one expression.
+
+**Example** 
+
+```python
+# Syntax: lambda arguments: expression
+square = lambda x: x ** 2
+add_two = lambda x, y: x + y
+
+print(f"Square of 5: {square(5)}")
+print(f"Sum of 10 and 20: {add_two(10, 20)}")
+
+```
+
+**Output**
+
+```
+Square of 5: 25
+Sum of 10 and 20: 30
+
+```
+
+## 10. Recursion
+
+**Recursion** occurs when a function calls itself to solve a smaller instance of the same problem. Every recursive function requires a **base case** to stop execution and prevent infinite recursion.
+
+**Example** 
+
+```python
+def factorial(n):
+    # Base case
+    if n == 1 or n == 0:
+        return 1
+    # Recursive case
+    return n * factorial(n - 1)
+
+print(f"Factorial of 5: {factorial(5)}")
+
+```
+
+**Output**
+
+```
+Factorial of 5: 120
+
+```
+
+## 11. Higher-Order Functions
+
+A **Higher-Order Function** is a function that either takes one or more functions as arguments, returns a function as its result, or both.
+
+**Example** 
+
+```python
+def apply_operation(func, number):
+    return func(number)
+
+def double(x):
+    return x * 2
+
+result = apply_operation(double, 8)
+print(f"Result: {result}")
+
+```
+
+**Output**
+
+```
+Result: 16
+
+```
+
+## 12. `map()`
+
+The **`map()`** built-in function applies a specified function to every item in an iterable (such as a list) and returns an iterator.
+
+**Example** 
+
+```python
+numbers = [1, 2, 3, 4, 5]
+
+# Square all numbers using map and lambda
+squared_numbers = list(map(lambda x: x ** 2, numbers))
+print(f"Squared list: {squared_numbers}")
+
+```
+
+**Output**
+
+```
+Squared list: [1, 4, 9, 16, 25]
+
+```
+
+## 13. `filter()`
+
+The **`filter()`** function constructs an iterator from elements of an iterable for which a conditional function returns `True`.
+
+ **Example** 
+
+```python
+numbers = [10, 15, 20, 25, 30, 35]
+
+# Filter even numbers
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"Even numbers: {even_numbers}")
+
+```
+
+**Output**
+
+```
+Even numbers: [10, 20, 30]
+
+```
+
+## 14. `reduce()`
+
+The **`reduce()`** function from the `functools` module applies a function cumulatively to sequence items, reducing the entire collection down to a single value.
+
+**Example** 
+
+```python
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5]
+
+# Multiply all numbers sequentially: (((1*2)*3)*4)*5
+product = reduce(lambda x, y: x * y, numbers)
+print(f"Product of list: {product}")
+
+```
+
+**Output**
+
+```
+Product of list: 120
+
+```

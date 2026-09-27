@@ -1,0 +1,455 @@
+---
+title: "OBJECT-ORIENTED PROGRAMMING(OOP)"
+language: "python"
+description: "Learn Python OOP from scratch! Explore classes, objects, static & class methods, multiple inheritance, polymorphism, abstraction, and dunder methods."
+---
+
+## 1. Introduction to OOP
+
+**Object-Oriented Programming (OOP)** is a programming paradigm based on the concept of "objects", which contain data (attributes) and code (methods). OOP helps organize code into modular, reusable, and readable structures by modeling real-world entities.
+
+**Example**
+
+```python
+# procedural approach vs OOP thinking
+# In OOP, we bundle data (brand, speed) and behavior (drive) together.
+
+class Car:
+    def drive(self):
+        print("The car is driving forward!")
+
+# Creating an instance and invoking behavior
+my_car = Car()
+my_car.drive()
+```
+
+**Output**
+
+```text
+The car is driving forward!
+```
+
+---
+
+## 2. Classes and Objects
+
+* **Class:** A user-defined blueprint or template for creating objects.
+* **Object:** An instance of a class that holds actual data values defined by the blueprint.
+
+**Example**
+
+```python
+# Defining a Class
+class Student:
+    pass
+
+# Creating Objects (Instances)
+student1 = Student()
+student2 = Student()
+
+print("Object 1:", student1)
+print("Object 2:", student2)
+```
+
+**Output**
+
+```text
+Object 1: <__main__.Student object at 0x7f9a8c010a30>
+Object 2: <__main__.Student object at 0x7f9a8c010a90>
+```
+
+---
+
+## 3. Constructors (`__init__`)
+
+A **Constructor** is a special method named `__init__()` that Python automatically executes when a new object is created. It is primarily used to initialize instance variables.
+
+**Example**
+
+```python
+class Laptop:
+    # Constructor method
+    def __init__(self, brand, price):
+        self.brand = brand
+        self.price = price
+
+# Instantiating objects triggers __init__ automatically
+laptop1 = Laptop("Dell", 850)
+laptop2 = Laptop("Apple", 1200)
+
+print(f"Laptop 1: {laptop1.brand} - ${laptop1.price}")
+print(f"Laptop 2: {laptop2.brand} - ${laptop2.price}")
+```
+
+**Output**
+
+```text
+Laptop 1: Dell - $850
+Laptop 2: Apple - $1200
+```
+
+---
+
+## 4. Instance Variables
+
+**Instance Variables** are variables that belong to a specific object instance. They are defined inside methods using `self` and hold unique data for each object created from the class.
+
+**Example**
+
+```python
+class Dog:
+    def __init__(self, name, breed):
+        self.name = name    # Instance variable
+        self.breed = breed  # Instance variable
+
+dog1 = Dog("Buddy", "Golden Retriever")
+dog2 = Dog("Max", "German Shepherd")
+
+print(f"{dog1.name} is a {dog1.breed}.")
+print(f"{dog2.name} is a {dog2.breed}.")
+```
+
+**Output**
+
+```text
+Buddy is a Golden Retriever.
+Max is a German Shepherd.
+```
+
+---
+
+## 5. Class Variables
+
+**Class Variables** are variables defined directly within a class (outside any methods). They are shared across all instances of that class.
+
+**Example**
+
+```python
+class School:
+    school_name = "Tech Academy"  # Class variable shared by all students
+
+    def __init__(self, student_name):
+        self.student_name = student_name  # Instance variable
+
+s1 = School("Alice")
+s2 = School("Bob")
+
+print(f"{s1.student_name} attends {s1.school_name}")
+print(f"{s2.student_name} attends {s2.school_name}")
+```
+
+**Output**
+
+```text
+Alice attends Tech Academy
+Bob attends Tech Academy
+```
+
+---
+
+## 6. Instance Methods
+
+**Instance Methods** are functions defined inside a class that operate on individual instances. They always take `self` as their first parameter, granting access to instance variables and other methods.
+
+**Example**
+
+```python
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+
+    # Instance method
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited ${amount}. New balance for {self.owner}: ${self.balance}")
+
+account = BankAccount("Sarah", 500)
+account.deposit(150)
+```
+
+**Output**
+
+```text
+Deposited $150. New balance for Sarah: $650
+```
+
+---
+
+## 7. Class Methods (`@classmethod`)
+
+**Class Methods** operate on the class itself rather than individual instances. They are decorated with `@classmethod` and take `cls` as their first parameter. They are often used as alternative constructors or to modify class state.
+
+**Example**
+
+```python
+class Course:
+    course_name = "Python Mastery"
+
+    @classmethod
+    def update_course_name(cls, new_name):
+        cls.course_name = new_name
+
+print("Original Course:", Course.course_name)
+
+# Modify class variable via class method
+Course.update_course_name("Advanced Python & AI")
+print("Updated Course:", Course.course_name)
+```
+
+**Output**
+
+```text
+Original Course: Python Mastery
+Updated Course: Advanced Python & AI
+```
+
+---
+
+## 8. Static Methods (`@staticmethod`)
+
+**Static Methods** are utility methods that belong to a class namespace but do not access or modify class (`cls`) or instance (`self`) data. They are created using the `@staticmethod` decorator.
+
+**Example**
+
+```python
+class Calculator:
+    @staticmethod
+    def is_even(number):
+        return number % 2 == 0
+
+print("Is 10 even?", Calculator.is_even(10))
+print("Is 7 even?", Calculator.is_even(7))
+```
+
+**Output**
+
+```text
+Is 10 even? True
+Is 7 even? False
+```
+
+---
+
+## 9. Inheritance
+
+**Inheritance** allows a child class (subclass) to inherit attributes and methods from a parent class (superclass), promoting code reusability.
+
+**Example**
+
+```python
+# Parent Class
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def eat(self):
+        print(f"{self.name} is eating.")
+
+# Child Class inheriting from Animal
+class Cat(Animal):
+    def meow(self):
+        print(f"{self.name} says Meow!")
+
+my_cat = Cat("Whiskers")
+my_cat.eat()   # Inherited method
+my_cat.meow()  # Child-specific method
+```
+
+**Output**
+
+```text
+Whiskers is eating.
+Whiskers says Meow!
+```
+
+---
+
+## 10. Multiple Inheritance
+
+**Multiple Inheritance** occurs when a single child class inherits features from more than one parent class.
+
+**Example**
+
+```python
+class Flyable:
+    def fly(self):
+        print("Flying in the sky!")
+
+class Swimmable:
+    def swim(self):
+        print("Swimming in the water!")
+
+# Duck inherits from both Flyable and Swimmable
+class Duck(Flyable, Swimmable):
+    def quack(self):
+        print("Quack quack!")
+
+donald = Duck()
+donald.fly()
+donald.swim()
+donald.quack()
+```
+
+**Output**
+
+```text
+Flying in the sky!
+Swimming in the water!
+Quack quack!
+```
+
+---
+
+## 11. Encapsulation
+
+**Encapsulation** restricts direct access to an object's internal data to prevent accidental modification. In Python, attributes prefixed with double underscores `__` are **private**.
+
+**Example**
+
+```python
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name          # Public variable
+        self.__salary = salary    # Private variable
+
+    # Getter method
+    def get_salary(self):
+        return self.__salary
+
+    # Setter method
+    def set_salary(self, amount):
+        if amount > 0:
+            self.__salary = amount
+
+emp = Employee("John", 50000)
+print(f"Employee: {emp.name}")
+print(f"Salary via getter: ${emp.get_salary()}")
+
+# Updating salary via setter
+emp.set_salary(55000)
+print(f"Updated Salary: ${emp.get_salary()}")
+```
+
+**Output**
+
+```text
+Employee: John
+Salary via getter: $50000
+Updated Salary: $55000
+```
+
+---
+
+## 12. Polymorphism
+
+**Polymorphism** allows objects of different classes to respond to the same method call in their own unique way (typically through method overriding).
+
+**Example**
+
+```python
+class Shape:
+    def area(self):
+        pass
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return 3.14159 * self.radius ** 2
+
+class Square(Shape):
+    def __init__(self, side):
+        self.side = side
+
+    def area(self):
+        return self.side ** 2
+
+# Polymorphic behavior in action
+shapes = [Circle(5), Square(4)]
+
+for shape in shapes:
+    print(f"Area: {shape.area():.2f}")
+```
+
+**Output**
+
+```text
+Area: 78.54
+Area: 16.00
+```
+
+---
+
+## 13. Abstraction
+
+**Abstraction** hides complex implementation details and enforces a common interface across subclasses using Python's `abc` module (`ABC` and `@abstractmethod`).
+
+**Example**
+
+```python
+from abc import ABC, abstractmethod
+
+# Abstract Base Class
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def process_payment(self, amount):
+        pass
+
+class CreditCardPayment(PaymentProcessor):
+    def process_payment(self, amount):
+        print(f"Processing credit card payment of ${amount}")
+
+class PaypalPayment(PaymentProcessor):
+    def process_payment(self, amount):
+        print(f"Processing PayPal payment of ${amount}")
+
+payment1 = CreditCardPayment()
+payment2 = PaypalPayment()
+
+payment1.process_payment(100)
+payment2.process_payment(250)
+```
+
+**Output**
+
+```text
+Processing credit card payment of $100
+Processing PayPal payment of $250
+```
+
+---
+
+## 14. Magic Methods (Dunder Methods)
+
+**Magic Methods** (or dunder methods) begin and end with double underscores (`__`). They allow custom classes to hook into Python built-in operations (like string representation `__str__` or addition `__add__`).
+
+**Example**
+
+```python
+class Book:
+    def __init__(self, title, pages):
+        self.title = title
+        self.pages = pages
+
+    # String representation when printed
+    def __str__(self):
+        return f"'{self.title}' with {self.pages} pages"
+
+    # Custom len() behavior
+    def __len__(self):
+        return self.pages
+
+book = Book("Python Crash Course", 462)
+
+print(str(book))
+print(f"Page Count: {len(book)}")
+```
+
+**Output**
+
+```text
+'Python Crash Course' with 462 pages
+Page Count: 462
+```

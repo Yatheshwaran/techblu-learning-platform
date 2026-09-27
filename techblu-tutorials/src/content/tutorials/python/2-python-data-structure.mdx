@@ -1,0 +1,319 @@
+---
+title: "PYTHON DATA STRUCTURES"
+language: "python"
+description: "Master Python data structures! Learn lists, tuples, sets, and dictionaries with hands-on code examples, clear logic, and performance tips."
+---
+
+
+## 1. Python Lists
+
+A **list** is an ordered, changeable (mutable) collection of items that allows duplicate elements. Lists are written using square brackets `[]`.
+
+```python
+fruits = ["apple", "banana", "cherry", "apple"]
+
+print(fruits)
+print("First item:", fruits[0])
+print("Type:", type(fruits))
+
+```
+
+**Output:**
+
+```text
+['apple', 'banana', 'cherry', 'apple']
+First item: apple
+Type: <class 'list'>
+
+```
+
+---
+
+## 2. List Methods
+
+List methods are built-in functions used to modify or analyze list data, such as adding, removing, sorting, or counting elements.
+
+```python
+numbers = [3, 1, 4]
+
+numbers.append(2)       # Add 2 to the end
+numbers.sort()          # Sort in ascending order
+popped_val = numbers.pop()  # Remove and return the last item
+
+print("Modified list:", numbers)
+print("Popped value:", popped_val)
+
+```
+
+**Output:**
+
+```text
+Modified list: [1, 2, 3]
+Popped value: 4
+
+```
+
+---
+
+## 3. List Slicing
+
+**List slicing** extracts a portion of a list using the syntax `list[start:stop:step]`.
+
+* `start`: Beginning index (inclusive)
+* `stop`: Ending index (exclusive)
+* `step`: Number of steps to jump
+
+```python
+letters = ['a', 'b', 'c', 'd', 'e', 'f']
+
+print("First three:", letters[0:3])
+print("Every second item:", letters[::2])
+print("Reversed list:", letters[::-1])
+
+```
+
+**Output:**
+
+```text
+First three: ['a', 'b', 'c']
+Every second item: ['a', 'c', 'e']
+Reversed list: ['f', 'e', 'd', 'c', 'b', 'a']
+
+```
+
+---
+
+## 4. List Comprehension
+
+**List comprehension** offers a concise one-line syntax for creating a new list from an existing sequence.
+
+**Syntax:** `[expression for item in iterable if condition]`
+
+```python
+# Create a list of squares for even numbers between 1 and 6
+evens_squared = [x**2 for x in range(1, 7) if x % 2 == 0]
+
+print(evens_squared)
+
+```
+
+**Output:**
+
+```text
+[4, 16, 36]
+
+```
+
+---
+
+## 5. Python Tuples
+
+A **tuple** is an ordered collection of elements that is **immutable** (cannot be changed after creation). Tuples allow duplicate values and are written with parentheses `()`.
+
+```python
+coordinates = (10, 20, 10)
+
+print(coordinates)
+print("Latitude:", coordinates[0])
+
+```
+
+**Output:**
+
+```text
+(10, 20, 10)
+Latitude: 10
+
+```
+
+---
+
+## 6. Tuple Methods
+
+Because tuples cannot be altered after creation, Python provides only two built-in methods for them: `.count()` and `.index()`.
+
+```python
+colors = ("red", "green", "blue", "red")
+
+print("Count of 'red':", colors.count("red"))
+print("Index of 'green':", colors.index("green"))
+
+```
+
+**Output:**
+
+```text
+Count of 'red': 2
+Index of 'green': 1
+
+```
+
+---
+
+## 7. Python Sets
+
+A **set** is an unordered, unindexed collection of **unique** elements. Duplicate items are automatically removed. Sets are written with curly braces `{}`.
+
+```python
+unique_numbers = {1, 2, 2, 3, 4, 4}
+
+print(unique_numbers)
+
+```
+
+**Output:**
+
+```text
+{1, 2, 3, 4}
+
+```
+
+---
+
+## 8. Set Methods
+
+Set methods allow adding or removing items, as well as performing mathematical operations like unions, intersections, and differences.
+
+```python
+set_a = {1, 2, 3}
+set_b = {3, 4, 5}
+
+set_a.add(10)
+
+print("Set A after add:", set_a)
+print("Union:", set_a.union(set_b))
+print("Intersection:", set_a.intersection(set_b))
+
+```
+
+**Output:**
+
+```text
+Set A after add: {1, 2, 3, 10}
+Union: {1, 2, 3, 4, 5, 10}
+Intersection: {3}
+
+```
+
+---
+
+## 9. Python Dictionaries
+
+A **dictionary** stores data in **key-value pairs**. Keys must be unique, while values can be any data type. Dictionaries are mutable and written with curly braces `{ key: value }`.
+
+```python
+student = {
+    "name": "Alex",
+    "age": 20,
+    "grade": "A"
+}
+
+print(student)
+print("Name:", student["name"])
+
+```
+
+**Output:**
+
+```text
+{'name': 'Alex', 'age': 20, 'grade': 'A'}
+Name: Alex
+
+```
+
+---
+
+## 10. Dictionary Methods
+
+Dictionary methods are used to retrieve, update, or clear key-value pairs safely.
+
+```python
+car = {"brand": "Toyota", "model": "Corolla", "year": 2022}
+
+print("Keys:", list(car.keys()))
+print("Values:", list(car.values()))
+print("Safe fetch:", car.get("color", "Not Specified"))
+
+```
+
+**Output:**
+
+```text
+Keys: ['brand', 'model', 'year']
+Values: ['Toyota', 'Corolla', 2022]
+Safe fetch: Not Specified
+
+```
+
+---
+
+## 11. Dictionary Comprehension
+
+**Dictionary comprehension** provides a compact way to construct dictionaries from iterables in a single line.
+
+**Syntax:** `{key_expr: value_expr for item in iterable}`
+
+```python
+numbers = [1, 2, 3, 4]
+square_dict = {x: x**2 for x in numbers}
+
+print(square_dict)
+
+```
+
+**Output:**
+
+```text
+{1: 1, 2: 4, 3: 9, 4: 16}
+
+```
+
+---
+
+## 12. Nested Lists
+
+A **nested list** is a list that contains other lists as its elements, commonly used to represent grids or matrices.
+
+```python
+# 3x3 Grid
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Access row index 1, column index 2 (value 6)
+print("Element at matrix[1][2]:", matrix[1][2])
+
+```
+
+**Output:**
+
+```text
+Element at matrix[1][2]: 6
+
+```
+
+---
+
+## 13. Nested Dictionaries
+
+A **nested dictionary** is a dictionary containing other dictionaries as values, ideal for representing complex structured records.
+
+```python
+classroom = {
+    "student1": {"name": "Liam", "score": 88},
+    "student2": {"name": "Sophia", "score": 95}
+}
+
+# Accessing Sophia's score
+print("Sophia's Score:", classroom["student2"]["score"])
+
+```
+
+**Output:**
+
+```text
+Sophia's Score: 95
+
+```

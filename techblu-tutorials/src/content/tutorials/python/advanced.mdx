@@ -1,0 +1,426 @@
+---
+title: "ADVANCED PYTHON PROGRAMMING GUIDE"
+language: "python"
+description: "Complete guide to Advanced Python topics: decorators, generators, iterators vs iterables, context managers, type hints, dataclasses, and memory handling."
+---
+
+## 1. Iterators
+
+An **Iterator** is an object in Python that contains a countable number of values and can be iterated (traversed) upon one value at a time. It implements the iterator protocol, which consists of two methods:
+* `__iter__()`: Returns the iterator object itself.
+* `__next__()`: Returns the next element from the sequence or raises a `StopIteration` exception when no elements remain.
+
+**Example**
+
+```python
+# Custom Iterator class
+class CountDown:
+    def __init__(self, start):
+        self.current = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration
+        val = self.current
+        self.current -= 1
+        return val
+
+# Using the iterator
+countdown = CountDown(3)
+for num in countdown:
+    print(num)
+```
+
+**Output**
+
+```text
+3
+2
+1
+```
+
+---
+
+## 2. Generators
+
+A **Generator** is a simplified way to create iterators using functions. Instead of returning a value using `return`, a generator uses the `yield` keyword. When called, a generator returns a generator object without executing the entire function at once; execution resumes from where it paused every time `next()` is called.
+
+**Example**
+
+```python
+# Generator function for even numbers
+def generate_evens(limit):
+    num = 0
+    while num <= limit:
+        yield num
+        num += 2
+
+# Iterating through generator
+for even in generate_evens(6):
+    print(even)
+```
+
+**Output**
+
+```text
+0
+2
+4
+6
+```
+
+---
+
+## 3. Decorators
+
+A **Decorator** is a function that takes another function as an argument, extends or modifies its behavior without directly changing the original source code, and returns the modified function. Decorators use the `@decorator_name` syntax.
+
+**Example**
+
+```python
+# Decorator function
+def announce_execution(func):
+    def wrapper():
+        print("Starting task...")
+        func()
+        print("Task completed!")
+    return wrapper
+
+# Applying decorator
+@announce_execution
+def process_data():
+    print("Processing incoming data...")
+
+process_data()
+```
+
+**Output**
+
+```text
+Starting task...
+Processing incoming data...
+Task completed!
+```
+
+---
+
+## 4. Closures
+
+A **Closure** is a nested inner function that retains access to variables from its enclosing (outer) function's scope, even after the outer function has finished executing and returned.
+
+**Example**
+
+```python
+def make_multiplier(factor):
+    # Outer scope variable: factor
+    def multiply(number):
+        return number * factor  # Remembers 'factor'
+    return multiply
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+
+print("Double 5:", double(5))
+print("Triple 5:", triple(5))
+```
+
+**Output**
+
+```text
+Double 5: 10
+Triple 5: 15
+```
+
+---
+
+## 5. Context Managers
+
+A **Context Manager** manages the allocation and release of resources (such as file handles or database connections) safely and automatically. It relies on two special methods:
+* `__enter__()`: Sets up the resource.
+* `__exit__()`: Cleans up or closes the resource, even if errors occur.
+
+Context managers are typically invoked using the `with` statement.
+
+**Example**
+
+```python
+# Custom Context Manager
+class ManagedFile:
+    def __init__(self, filename):
+        self.filename = filename
+
+    def __enter__(self):
+        print(f"Opening file '{self.filename}'...")
+        self.file = open(self.filename, 'w')
+        return self.file
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(f"Closing file '{self.filename}'...")
+        self.file.close()
+
+with ManagedFile("demo.txt") as f:
+    f.write("Hello, Context Manager!")
+    print("Writing content to file...")
+```
+
+**Output**
+
+```text
+Opening file 'demo.txt'...
+Writing content to file...
+Closing file 'demo.txt'...
+```
+
+---
+
+## 6. The `yield` Keyword
+
+The **`yield`** keyword is used inside a function to turn it into a generator. Unlike `return`, which terminates the function execution completely, `yield` pauses execution, returns a value to the caller, and retains all local state variables for subsequent calls.
+
+**Example**
+
+```python
+def fibonacci_series(count):
+    a, b = 0, 1
+    for _ in range(count):
+        yield a
+        a, b = b, a + b
+
+# Fetching values produced by yield
+fib = list(fibonacci_series(6))
+print("Fibonacci sequence:", fib)
+```
+
+**Output**
+
+```text
+Fibonacci sequence: [0, 1, 1, 2, 3, 5]
+```
+
+---
+
+## 7. Type Hints
+
+**Type Hints** allow developers to explicitly annotate variable types, function parameter types, and expected return types. Introduced in Python 3.5+, type hints make code self-documenting and enable static analysis tools and IDEs to detect bugs early.
+
+**Example**
+
+```python
+from typing import List
+
+# Annotating parameters and return type
+def calculate_average(scores: List[float]) -> float:
+    return sum(scores) / len(scores)
+
+user_scores: List[float] = [88.5, 92.0, 79.5]
+avg: float = calculate_average(user_scores)
+
+print(f"Calculated Average: {avg:.2f}")
+```
+
+**Output**
+
+```text
+Calculated Average: 86.67
+```
+
+---
+
+## 8. Dataclasses
+
+Introduced in Python 3.7, a **Dataclass** (`@dataclass` decorator from the `dataclasses` module) automatically generates special methods like `__init__()`, `__repr__()`, and `__eq__()` for classes meant primarily to hold state/data, eliminating boilerplate code.
+
+**Example**
+
+```python
+from dataclasses import dataclass
+
+@dataclass
+class Product:
+    name: str
+    price: float
+    in_stock: bool = True
+
+# Instantiating automatically generated constructor
+p1 = Product(name="Wireless Mouse", price=29.99)
+p2 = Product(name="Wireless Mouse", price=29.99)
+
+print("Product Object:", p1)
+print("Are products equal?", p1 == p2)
+```
+
+**Output**
+
+```text
+Product Object: Product(name='Wireless Mouse', price=29.99, in_stock=True)
+Are products equal? True
+```
+
+---
+
+## 9. Enumerations (`Enum`)
+
+An **Enumeration (Enum)** is a set of symbolic names (members) bound to unique constant values. Defined using the `enum` module, Enums prevent bugs caused by hardcoded magic numbers or string literals across applications.
+
+**Example**
+
+```python
+from enum import Enum
+
+class OrderStatus(Enum):
+    PENDING = 1
+    PROCESSING = 2
+    SHIPPED = 3
+
+current_status = OrderStatus.PROCESSING
+
+print("Status Name:", current_status.name)
+print("Status Value:", current_status.value)
+if current_status == OrderStatus.PROCESSING:
+    print("Order is currently being processed.")
+```
+
+**Output**
+
+```text
+Status Name: PROCESSING
+Status Value: 2
+Order is currently being processed.
+```
+
+---
+
+## 10. Shallow Copy vs Deep Copy
+
+When copying complex objects (like nested lists or dictionaries) using the `copy` module:
+* **Shallow Copy (`copy.copy()`):** Creates a new top-level object, but references the inner nested elements from the original.
+* **Deep Copy (`copy.deepcopy()`):** Recursively duplicates all nested objects, creating completely independent copies.
+
+**Example**
+
+```python
+import copy
+
+original = [[1, 2], [3, 4]]
+
+# Creating copies
+shallow = copy.copy(original)
+deep = copy.deepcopy(original)
+
+# Modifying nested element in original list
+original[0][0] = 99
+
+print("Original:", original)
+print("Shallow Copy (affected):", shallow)
+print("Deep Copy (unaffected):", deep)
+```
+
+**Output**
+
+```text
+Original: [[99, 2], [3, 4]]
+Shallow Copy (affected): [[99, 2], [3, 4]]
+Deep Copy (unaffected): [[1, 2], [3, 4]]
+```
+
+---
+
+## 11. Mutable vs Immutable Objects
+
+* **Mutable Objects:** Objects whose memory contents can be modified after creation (e.g., `list`, `dict`, `set`).
+* **Immutable Objects:** Objects whose value cannot be altered after creation (e.g., `int`, `str`, `tuple`, `float`). Modifying an immutable variable creates a brand new object in memory.
+
+**Example**
+
+```python
+# Mutable Object Example
+numbers = [1, 2, 3]
+print("List ID before:", id(numbers))
+numbers.append(4)
+print("List ID after modification:", id(numbers))  # Same ID
+
+# Immutable Object Example
+text = "Hello"
+print("\nString ID before:", id(text))
+text = text + " World"
+print("String ID after modification:", id(text))  # New ID created
+```
+
+**Output**
+
+```text
+List ID before: 140238421098432
+List ID after modification: 140238421098432
+
+String ID before: 140238421154304
+String ID after modification: 140238421158912
+```
+
+---
+
+## 12. Iterables vs Iterators
+
+* **Iterable:** Any object that can be passed to the `iter()` function to produce an iterator. It contains elements that can be looped over (e.g., `list`, `str`, `dict`, `tuple`).
+* **Iterator:** The underlying object returned by `iter(iterable)`. It remembers its current state during traversal and yields items one by one using `next()`.
+
+**Example**
+
+```python
+# List is an Iterable
+my_list = [10, 20]
+
+# Getting an Iterator from Iterable
+my_iterator = iter(my_list)
+
+print("Object type of list:", type(my_list))
+print("Object type of iterator:", type(my_iterator))
+
+# Traversed via iterator
+print("First item:", next(my_iterator))
+print("Second item:", next(my_iterator))
+```
+
+**Output**
+
+```text
+Object type of list: <class 'list'>
+Object type of iterator: <class 'list_iterator'>
+First item: 10
+Second item: 20
+```
+
+---
+
+## 13. Python Memory Management
+
+Python manages memory automatically using a **Private Heap** containing all objects and data structures:
+1. **Reference Counting:** Tracks the number of references pointing to each object. When reference count reaches 0, memory is automatically freed.
+2. **Garbage Collection (GC):** A built-in garbage collector detects and cleans up circular references that reference counting alone cannot resolve.
+
+**Example**
+
+```python
+import sys
+import gc
+
+# Reference counting example
+a = [1, 2, 3]
+print("Initial reference count of 'a':", sys.getrefcount(a))
+
+b = a  # Additional reference created
+print("Reference count after assignment 'b = a':", sys.getrefcount(a))
+
+# Garbage Collection status
+print("Is Garbage Collector enabled?", gc.isenabled())
+```
+
+**Output**
+
+```text
+Initial reference count of 'a': 2
+Reference count after assignment 'b = a': 3
+Is Garbage Collector enabled? True
+```

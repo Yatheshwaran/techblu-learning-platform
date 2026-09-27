@@ -1,0 +1,444 @@
+---
+title: "PYTHON BASICS"
+language: "python"
+description: "Learn Python basics from variables to loops."
+---
+
+## 1. Introduction to Python
+
+ Python is a high-level, general purpose programming language. That means it is written in a way humans can easily read, and you can use it to build almost anything: websites, games, apps, data analysis tools, and AI systems.
+
+It was created by Guido van Rossum and first released in 1991. The name doesn't come from the snake. It comes from the British comedy show Monty Python's Flying Circus, which he enjoyed.
+
+## 2. Installing Python
+1. Go to the official website:[`python.org`](https://www.python.org/).
+2. Click on "Downloads" and download the version for your computer (Windows or Mac).
+3. **Important:** When installing on Windows, make sure to check the box that says **"Add Python to PATH"** before clicking "Install Now."
+
+## 3. Python Syntax
+
+ Syntax is the set of rules for how we write code. Unlike other languages that use curly brackets `{}` to group code, Python uses **indentation** (empty spaces at the start of a line).
+
+
+
+```python
+# Correct Syntax
+if 5 > 2:
+    print("Five is greater than two!") # Notice the spaces before print
+```
+
+**Output**
+
+```text
+Five is greater than two!
+```
+
+
+## 4. Python Comments
+
+ Comments are notes you leave in your code for yourself or other humans. The computer completely ignores them. You make a comment by putting a hash symbol `#` in front of your text.
+
+
+
+```python
+# This is a comment. The computer will not read this.
+print("Learn something, build something") # This prints a message to the screen
+```
+
+
+**Output**
+
+```text
+Learn something, build something
+```
+
+
+## 5. Python Variables
+
+ Think of a variable as a labeled box where you can store information. You give the box a name, and put data inside it using the equals sign `=`.
+
+
+
+```python
+name = "Alex"  # A box named 'name' holding the text "Alex"
+age = 15       # A box named 'age' holding the number 15
+
+print(name)
+print(age)
+```
+
+
+**Output**
+
+
+```text
+Alex
+15
+```
+
+
+## 6. Python Data Types
+
+ Data types tell Python what *kind* of data is inside your variable box. The most common ones are:
+
+* **Strings (`str`):** Text.
+* **Integers (`int`):** Whole numbers.
+* **Floats (`float`):** Decimal numbers.
+* **Booleans (`bool`):** True or False.
+
+## 7. Python Numbers
+
+There are two main types of numbers you will use in Level 1:
+
+* **int:** Whole numbers (e.g., 10, -5, 1000).
+* **float:** Numbers with a decimal point (e.g., 3.14, 9.99).
+
+
+```python
+my_int = 20
+my_float = 15.5
+
+print(my_int + my_float) # Python can add them together!
+```
+
+**Output**
+
+```text
+35.5
+```
+
+
+## 8. Python Strings
+
+ A string is just text. You create a string by putting text inside single quotes `''` or double quotes `""`.
+
+
+
+```python
+greeting = "Hello there!"
+favorite_color = 'Blue'
+
+print(greeting)
+```
+
+
+**Output**
+
+```text
+Hello there!
+```
+
+
+## 9. Python Type Casting
+
+ Sometimes you need to change a piece of data from one type to another. For example, changing the number `5` into the text `"5"`. This is called casting.
+
+
+```python
+number = 10
+text_number = str(number) # Convert number to a string
+
+text_price = "99"
+real_price = int(text_price) # Convert text into a number
+
+print(type(text_number))
+print(type(real_price))
+```
+
+
+**Output**
+
+```text
+<class 'str'>
+<class 'int'>
+```
+
+
+## 10. Python Input and Output
+
+* **Output:** How the computer talks to you. We use `print()`.
+* **Input:** How you talk to the computer. We use `input()`.
+
+
+
+```python
+# Output
+print("Welcome to my program!")
+
+# Input simulation (Normally input() stops and waits for you)
+user_name = "Sarah" 
+print("Hello, " + user_name)
+```
+
+
+**Output**
+
+
+```text
+Welcome to my program!
+Hello, Sarah
+```
+
+
+## 11. Python Operators
+
+ Operators are special symbols that do math or compare things.
+
+* **Math:** `+` (add), `-` (subtract), `*` (multiply), `/` (divide).
+* **Comparison:** `==` (is equal to), `!=` (not equal), `>` (greater than), `<` (less than).
+
+
+
+```python
+# Math
+score = 10 + 5 
+print(score)
+
+# Comparison
+print(10 > 5)
+```
+
+
+**Output**
+
+```text
+15
+True
+```
+
+
+## 12. Python Booleans
+
+ A Boolean is like a light switch. It only has two settings: `True` (on) or `False` (off). Note the capital T and F!
+
+
+
+```python
+is_raining = True
+is_sunny = False
+
+print("Is it raining?", is_raining)
+```
+
+
+**Output**
+
+
+```text
+Is it raining? True
+```
+
+
+## 13. Python if Statement
+
+ This tells the computer to make a decision. "IF this is true, do this action."
+
+
+```python
+age = 16
+
+if age >= 16:
+    print("You are old enough to drive!")
+```
+
+**Output**
+
+```text
+You are old enough to drive!
+```
+
+
+## 14. Python if...else
+
+ This gives a backup plan. "IF this is true, do Action A. ELSE (otherwise), do Action B."
+
+
+
+```python
+weather = "raining"
+
+if weather == "raining":
+    print("Take an umbrella.")
+else:
+    print("Wear sunglasses.")
+```
+
+
+**Output**
+
+
+```text
+Take an umbrella.
+```
+
+
+## 15. Python if...elif...else
+
+ This lets you check multiple conditions. "elif" stands for "else if".
+
+
+
+```python
+score = 85
+
+if score >= 90:
+    print("You got an A!")
+elif score >= 80:
+    print("You got a B!")
+else:
+    print("You got a C or lower.")
+```
+
+
+**Output**
+
+
+```text
+You got a B!
+```
+
+
+## 16. Python Nested Conditions
+
+ This is an `if` statement *inside* another `if` statement. Like checking two things before doing an action.
+
+
+
+```python
+has_ticket = True
+has_id = True
+
+if has_ticket == True:
+    if has_id == True:
+        print("You may enter the concert!")
+    else:
+        print("You need your ID to get in.")
+```
+
+
+**Output**
+
+```text
+You may enter the concert!
+```
+
+
+## 17. Python for Loops
+
+ A loop lets you repeat code without writing it over and over. A `for` loop is great when you know exactly how many times you want to repeat something.
+
+
+
+```python
+# This will count from 0 to 4
+for number in range(5):
+    print(number)
+```
+
+
+**Output**
+
+```text
+0
+1
+2
+3
+4
+```
+
+
+## 18. Python while Loops
+
+ A `while` loop repeats code *as long as* a condition remains true. It stops when the condition becomes false.
+
+
+
+```python
+energy = 3
+
+while energy > 0:
+    print("Running a lap! Energy left:", energy)
+    energy = energy - 1 # We lose 1 energy each lap
+
+print("Time to rest!")
+```
+
+
+**Output**
+
+```text
+Running a lap! Energy left: 3
+Running a lap! Energy left: 2
+Running a lap! Energy left: 1
+Time to rest!
+```
+
+
+## 19. Python break
+
+ The `break` command is like pulling the emergency brake on a loop. It completely stops and exits the loop immediately, even if it wasn't finished.
+
+
+```python
+for number in range(10):
+    if number == 3:
+        break # Stops the whole loop when it hits 3
+    print(number)
+```
+
+
+**Output**
+
+```text
+0
+1
+2
+```
+
+
+## 20. Python continue
+
+ The `continue` command skips the rest of the *current* turn in a loop and immediately jumps back to the top for the next turn.
+
+
+
+```python
+for number in range(5):
+    if number == 2:
+        continue # Skips the number 2
+    print(number)
+```
+
+
+**Output**
+
+```text
+0
+1
+3
+4
+```
+
+
+## 21. Python pass
+
+ The `pass` command does absolutely nothing. It is used as a placeholder. Sometimes Python requires code inside an `if` statement or a loop, but you aren't ready to write it yet. `pass` prevents an error.
+
+
+
+```python
+if 5 > 2:
+    pass # I will write code here later, but for now, do nothing.
+
+print("Program finished without errors!")
+```
+
+
+**Output**
+
+
+```text
+Program finished without errors!
+```
+
+

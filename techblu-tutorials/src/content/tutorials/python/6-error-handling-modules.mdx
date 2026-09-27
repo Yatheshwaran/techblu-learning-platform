@@ -1,0 +1,425 @@
+---
+title: "ERROR HANDLING AND MODULES"
+language: "python"
+description: "Learn Python exception handling and package management! Practice try-except-finally, build custom exceptions, install modules with pip, and set up venvs."
+---
+
+## 1. Python Errors
+
+**Python Errors** are unexpected problems that cause a program to stop executing or produce incorrect results. Errors in Python are divided into two main categories:
+
+1. **Syntax Errors:** Occur when the code violates Python's grammar rules before execution (e.g., missing colon, unmatched parentheses).
+2. **Exceptions (Runtime Errors):** Occur during program execution when syntactically correct code encounters an illegal operation (e.g., dividing by zero, opening a missing file).
+
+![Python Error Types Diagram](https://mermaid.ink/svg/pako:eNptkEELwjAMgP_K2LMXm4I3D3oQ8SDI2A62m3WttY4R_91s9-BBku_3kvdS4Ka2UIN4uT22-9x02K2JtZililAox6oI_4xro1sO1yGFi-yD-fMBy_uAt0O04mXvKxL8x4uC1o04mD1UfXQG5UeR3k8XoOQgNSXkI-U8KslJ3_1BOSspN0oOp-UslZwUuWfC_I44O0m494f1O1AakA3I5_MBUwCDUQ)
+
+**Example**
+
+```python
+# 1. Syntax Error (Uncommenting this line will prevent execution entirely)
+# print("Hello World"
+
+# 2. Exception / Runtime Error
+numerator = 10
+denominator = 0
+result = numerator / denominator  # Triggers ZeroDivisionError
+```
+
+**Output**
+
+```text
+ZeroDivisionError: division by zero
+```
+
+---
+
+## 2. Exception Handling
+
+**Exception Handling** is a mechanism that allows a program to deal with runtime errors gracefully without crashing. By catching exceptions, programs can log meaningful messages, prompt users for retry, or clean up resources before exiting.
+
+**Example**
+
+```python
+def parse_age(age_input):
+    try:
+        age = int(age_input)
+        print(f"Your age is {age}")
+    except ValueError:
+        print("Invalid input! Please enter a numeric age.")
+
+parse_age("25")
+parse_age("twenty-five")
+```
+
+**Output**
+
+```text
+Your age is 25
+Invalid input! Please enter a numeric age.
+```
+
+---
+
+## 3. `try...except`
+
+The **`try...except`** block is the foundational structure for handling errors.
+* The **`try`** block contains code that might raise an exception.
+* The **`except`** block executes only if a specific error occurs within the `try` block.
+
+Multiple `except` blocks can be chained to handle different error types specifically.
+
+![try-except Flow Diagram](https://mermaid.ink/svg/pako:eNpVkE1rwzAMhv_K0Llr3XpoYTB3Gw3sXspSjy01scbYxM723-8mXdoI-vA-kmxPso0eC2E1P9qf3A2_Rsc3J6S2l3S4w3C641G0iEAnDqO8G72p9MhhAmslAip6S10S1I9B02D0G9w9mO_f_d0X5i6yv_G9u5IeA31mSIn04JIn_1_e4AThw3x8y8v-Uj2fD_Q-mYmSjA4zB04pL4R0XAnllJL5JOW0O1y0OqO8Ucrp6_a8A4UeA10)
+
+**Example**
+
+```python
+def safe_divide(a, b):
+    try:
+        num1 = float(a)
+        num2 = float(b)
+        result = num1 / num2
+        print(f"Result: {result}")
+    except ZeroDivisionError:
+        print("Error: Division by zero is not allowed.")
+    except ValueError:
+        print("Error: Please provide valid numbers.")
+
+safe_divide(10, 2)
+safe_divide(10, 0)
+safe_divide("ten", 2)
+```
+
+**Output**
+
+```text
+Result: 5.0
+Error: Division by zero is not allowed.
+Error: Please provide valid numbers.
+```
+
+---
+
+## 4. `else` and `finally`
+
+* **`else` Block:** Executes **only if no exception was raised** inside the `try` block.
+* **`finally` Block:** Executes **always**, regardless of whether an exception occurred or was caught. It is commonly used for cleanup operations (e.g., closing files or network connections).
+
+**Example**
+
+```python
+def read_number_from_str(text):
+    try:
+        val = int(text)
+    except ValueError:
+        print("Exception caught: Conversion failed.")
+    else:
+        print(f"Success! Converted value is {val}.")
+    finally:
+        print("Cleanup: Operation complete.")
+
+print("--- Test 1 ---")
+read_number_from_str("100")
+
+print("\n--- Test 2 ---")
+read_number_from_str("abc")
+```
+
+**Output**
+
+```text
+--- Test 1 ---
+Success! Converted value is 100.
+Cleanup: Operation complete.
+
+--- Test 2 ---
+Exception caught: Conversion failed.
+Cleanup: Operation complete.
+```
+
+---
+
+## 5. Raising Exceptions
+
+You can manually trigger an exception using the **`raise`** keyword when business logic rules or preconditions are violated.
+
+**Example**
+
+```python
+def set_account_balance(amount):
+    if amount < 0:
+        raise ValueError("Balance cannot be negative!")
+    print(f"Account balance set to: ${amount}")
+
+try:
+    set_account_balance(250)
+    set_account_balance(-50)
+except ValueError as e:
+    print(f"Error caught: {e}")
+```
+
+**Output**
+
+```text
+Account balance set to: $250
+Error caught: Balance cannot be negative!
+```
+
+---
+
+## 6. Custom Exceptions
+
+**Custom Exceptions** are user-defined error types created by inheriting from Python's built-in `Exception` class. They make code more expressively modeled to specific domain errors.
+
+**Example**
+
+```python
+# Custom Exception Class
+class InsufficientFundsError(Exception):
+    def __init__(self, balance, amount):
+        super().__init__(f"Attempted to withdraw ${amount}, but balance is only ${balance}.")
+
+class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFundsError(self.balance, amount)
+        self.balance -= amount
+        print(f"Withdrawal successful! Remaining balance: ${self.balance}")
+
+account = BankAccount(100)
+
+try:
+    account.withdraw(150)
+except InsufficientFundsError as err:
+    print(f"Custom Exception Handled: {err}")
+```
+
+**Output**
+
+```text
+Custom Exception Handled: Attempted to withdraw $150, but balance is only $100.
+```
+
+---
+
+## 7. Python Modules
+
+A **Module** is a file containing Python code (functions, classes, variables) ending with a `.py` extension. Modules allow developers to organize code logically into separate files for reusability and maintainability.
+
+![Python Modules Diagram](https://mermaid.ink/svg/pako:eNpVkEFuwjAQRa8yzb43iAMswAKm4AByADfG1B3SxE5kO1SFeHf-3Z-o0qA_33vjN_a2w0lboG5Xp2_O3aG3e25j63IipQ6SjU-8949mB_sXq0O_Gq_M5mU9Y_94X7X_G1_x8d3s0439t02888vNbf1vJ7Y3330xU4eLqJToT6dShJ7C4I2R1o2U3s21804pp7vU3oMCh8S048Q8GakC3p0Xw3BwG0G5JqE1aB6UInLzH6iYlE1aZ3RROdIn2p8q4TjG8AtBOHqZ)
+
+**Example**
+
+```python
+# Imagine a file named math_utils.py containing:
+# ----------------------------------------------
+# def square(n):
+#     return n * n
+#
+# PI_VALUE = 3.14159
+
+# Using the module:
+import math_utils
+
+print("Square of 4:", math_utils.square(4))
+print("PI Constant:", math_utils.PI_VALUE)
+```
+
+**Output**
+
+```text
+Square of 4: 16
+PI Constant: 3.14159
+```
+
+---
+
+## 8. Importing Modules
+
+Python provides flexible syntax options to import modules or specific components:
+
+1. `import module_name` — Imports the entire module.
+2. `from module_name import item` — Imports specific functions or variables.
+3. `import module_name as alias` — Imports the module under a shorter nickname.
+
+**Example**
+
+```python
+# 1. Standard import
+import math
+print("Square root of 16:", math.sqrt(16))
+
+# 2. Specific component import
+from math import pow
+print("2 raised to power 3:", pow(2, 3))
+
+# 3. Alias import
+import datetime as dt
+print("Current Year:", dt.date.today().year)
+```
+
+**Output**
+
+```text
+Square root of 16: 4.0
+2 raised to power 3: 8.0
+Current Year: 2026
+```
+
+---
+
+## 9. Python Packages
+
+A **Package** is a directory containing multiple Python modules organized in a folder structure. In traditional Python project structures, a package folder contains a special file named `__init__.py` (which indicates to Python that the directory should be treated as a package).
+
+```text
+my_package/
+│
+├── __init__.py         # Package initialization file
+├── string_helpers.py   # Module 1
+└── math_helpers.py     # Module 2
+```
+
+**Example**
+
+```python
+# Assuming package structure: my_package/math_helpers.py
+
+# Importing module from a package
+from my_package.math_helpers import add_numbers
+
+result = add_numbers(12, 18)
+print(f"Package Function Output: {result}")
+```
+
+**Output**
+
+```text
+Package Function Output: 30
+```
+
+---
+
+## 10. `pip` (Python Package Index)
+
+**`pip`** is the standard package manager for Python. It allows developers to install, inspect, update, and manage third-party libraries hosted on the {[PyPI (Python Package Index)](https://pypi.org/)} repository.
+
+```text
+       ┌──────────┐                     ┌───────────────┐
+       │   pip    │ ─── Downloads ───►  │  PyPI Server  │
+       └────┬─────┘                     └───────────────┘
+            │
+            ▼
+┌─────────────────────────┐
+│ Installed Local Modules │
+└─────────────────────────┘
+```
+
+**Common `pip` Commands**
+
+```bash
+# Installing a package
+pip install requests
+
+# Listing installed packages
+pip list
+
+# Uninstalling a package
+pip uninstall requests
+```
+
+**Example**
+
+```python
+# Using third-party library 'requests' installed via pip
+import requests
+
+response = requests.get("https://api.github.com")
+print(f"Response Status Code: {response.status_code}")
+```
+
+**Output**
+
+```text
+Response Status Code: 200
+```
+
+---
+
+## 11. Virtual Environments (`venv`)
+
+A **Virtual Environment** is a self-contained directory tree that contains a specific Python installation alongside independent third-party packages. It prevents dependency conflicts between different projects running on the same machine.
+
+![Virtual Environment Architecture Diagram](https://mermaid.ink/svg/pako:eNpVkM1u2zAQhF9F4FmJ0I2pA8_iFi5SoHUbN24R2CoosbVIUSxJ-XEDP3vXkuIn8oUa3A_sX_M12920fW12bInmYf196Lbb03rIXXp8-Nq1O5-fO1K9s4Uf8_M5tY4y72_jIffpsP6UuqY0_C8P_O2jA6178rA0fOBy_LhXh_2069J63k4oT3K4fE27x3xO_XpMu4_p_9s_fUf3M_mUfX_E4S93o_sM_fH6R3eX8eX6v_nI3f8D-S8s0xS1m3N)
+
+**Command Usage**
+
+```bash
+# 1. Create a virtual environment named 'myenv'
+python -m venv myenv
+
+# 2. Activate Virtual Environment:
+# On Windows:
+myenv\Scripts\activate
+# On macOS/Linux:
+source myenv/bin/activate
+
+# 3. Deactivate Environment
+deactivate
+```
+
+**Output**
+
+```text
+(myenv) user@computer:~$ python --version
+Python 3.11.4
+```
+
+---
+
+## 12. `requirements.txt`
+
+A **`requirements.txt`** file is a standard text file used to list all third-party dependencies required by a Python project, alongside their specific versions. This allows other developers to replicate the exact development environment.
+
+```text
+requests==2.31.0
+pandas>=2.0.0
+numpy==1.24.3
+```
+
+**Command Usage**
+
+```bash
+# Export all currently installed packages to requirements.txt
+pip freeze > requirements.txt
+
+# Install all packages listed in a requirements.txt file
+pip install -r requirements.txt
+```
+
+**Example**
+
+```python
+# Verification script after running pip install -r requirements.txt
+import pandas as pd
+import numpy as np
+
+arr = np.array([1, 2, 3, 4])
+s = pd.Series(arr)
+
+print("Pandas Series created successfully:")
+print(s)
+```
+
+**Output**
+
+```text
+Pandas Series created successfully:
+0    1
+1    2
+2    3
+3    4
+dtype: int64
+```
